@@ -1,7 +1,7 @@
 {
     "access_right": "open",
     "license": "MIT",
-    "title": "palday/BoxCox.jl: Box-Cox transformation in Julia",
+    "title": "JuliaMixedModels/BoxCox.jl: Box-Cox transformation in Julia",
     "description": "A Julia package providing the Box-Cox transformation and generalizations thereof for marginal and conditional distributions.",
     "upload_type": "software",
     "creators": [
