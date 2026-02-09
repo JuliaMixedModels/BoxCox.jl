@@ -9,4 +9,5 @@ makedocs(; root=joinpath(dirname(pathof(BoxCox)), "..", "docs"),
                 "mixed-models.md",
                 "api.md"])
 
-deploydocs(; repo="github.com/palday/BoxCox.jl", push_preview=true, devbranch="main")
+deploydocs(; repo="github.com/JuliaMixedModels/BoxCox.jl", push_preview=true,
+           devbranch="main")
