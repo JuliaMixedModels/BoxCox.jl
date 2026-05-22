@@ -52,7 +52,7 @@ function BoxCox.boxcoxplot!(ax::Axis, t::T;
         upper = last(ci) + 0.05 * abs(last(ci))
         λ = range(lower, upper; length=n_steps)
     end
-    sort!(collect(λ))
+    λ = sort!(collect(λ))
 
     (; X, y) = t
     ll = _llfunc(T)(X, y, λ)

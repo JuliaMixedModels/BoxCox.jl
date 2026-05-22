@@ -84,6 +84,10 @@ end
     save(path("boxcox.png"), bcp)
     @test bcp isa Makie.Figure
 
+    # unsorted user-provided λ vector should be sorted for plotting
+    bcp_unsorted = boxcoxplot(vol; λ=[0.5, -0.5, 0.0, 0.3, -0.3])
+    @test bcp_unsorted isa Makie.Figure
+
     volform = fit(BoxCoxTransformation,
                   @formula(Volume ~ 1 + log(Height) + log(Girth)),
                   trees)
