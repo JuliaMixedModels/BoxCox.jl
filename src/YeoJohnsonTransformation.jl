@@ -63,14 +63,14 @@ yeojohnson(λ; kwargs...) = x -> yeojohnson(λ, x; kwargs...)
 function yeojohnson(λ, x; atol=0)
     if x >= 0
         if !isapprox(λ, 0; atol)
-            ((x + 1)^λ - 1) / λ
+            return ((x + 1)^λ - 1) / λ
         else
             return log1p(x)
         end
     else
         if !isapprox(λ, 2; atol)
             twoλ = (2 - λ)
-            -((-x + 1)^twoλ - 1) / twoλ
+            return -((-x + 1)^twoλ - 1) / twoλ
         else
             return -log1p(-x)
         end

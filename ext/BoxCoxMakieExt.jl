@@ -12,7 +12,7 @@ using BoxCox: _llfunc!,
 # XXX it would be great to have a 1-1 aspect ratio here,
 # but this seems like something that should be done upstream
 function Makie.qqnorm!(ax::Axis, t::PowerTransformation, args...; kwargs...)
-    return qqnorm!(ax, t.(response(t), args...; kwargs...))
+    return qqnorm!(ax, t.(response(t)), args...; kwargs...)
 end
 
 function Makie.qqnorm(t::PowerTransformation, args...; kwargs...)
@@ -52,7 +52,7 @@ function BoxCox.boxcoxplot!(ax::Axis, t::T;
         upper = last(ci) + 0.05 * abs(last(ci))
         λ = range(lower, upper; length=n_steps)
     end
-    sort!(collect(λ))
+    λ = sort!(collect(λ))
 
     (; X, y) = t
     ll = _llfunc(T)(X, y, λ)
@@ -60,7 +60,7 @@ function BoxCox.boxcoxplot!(ax::Axis, t::T;
     scatterlines!(ax, λ, ll; attributes...)
     vlines!(ax, t.λ; linestyle=:dash, color=:black)
 
-    return plot
+    return ax
 end
 
 @setup_workload begin

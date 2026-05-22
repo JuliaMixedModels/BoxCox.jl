@@ -75,18 +75,28 @@ end
     @test qqfig isa Makie.Figure
     save(path("qqfig.png"), qqfig)
 
+    # qqnorm! with kwargs should not error
+    qqfig2 = Figure()
+    qqnorm!(Axis(qqfig2[1, 1]), vol; color=:blue)
+    @test qqfig2 isa Makie.Figure
+
     bcp = boxcoxplot(vol)
     save(path("boxcox.png"), bcp)
     @test bcp isa Makie.Figure
+
+    # unsorted user-provided λ vector should be sorted for plotting
+    bcp_unsorted = boxcoxplot(vol; λ=[0.5, -0.5, 0.0, 0.3, -0.3])
+    @test bcp_unsorted isa Makie.Figure
 
     volform = fit(BoxCoxTransformation,
                   @formula(Volume ~ 1 + log(Height) + log(Girth)),
                   trees)
     bcpf = Figure()
     ax = Axis(bcpf[1, 1]; title="profile log likelihood")
-    boxcoxplot!(ax, volform; conf_level=0.95,
-                xlabel="parameter",
-                ylabel="LL")
+    result_ax = boxcoxplot!(ax, volform; conf_level=0.95,
+                            xlabel="parameter",
+                            ylabel="LL")
+    @test result_ax === ax
     save(path("boxcox_formula.png"), bcpf)
 
     @test_throws ArgumentError boxcoxplot(1)

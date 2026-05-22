@@ -63,14 +63,29 @@ end
     @test qqfig isa Makie.Figure
     save(path("qqfig-yeojohnson.png"), qqfig)
 
+    # qqnorm! with kwargs should not error
+    qqfig2 = Figure()
+    qqnorm!(Axis(qqfig2[1, 1]), yt1; color=:blue)
+    @test qqfig2 isa Makie.Figure
+
     p = boxcoxplot(yt1; conf_level=0.95)
     save(path("yeojohnson.png"), p)
     @test p isa Makie.Figure
+
+    # unsorted user-provided λ vector should be sorted for plotting
+    p_unsorted = boxcoxplot(yt1; λ=[0.5, -0.5, 0.0, 0.3, -0.3])
+    @test p_unsorted isa Makie.Figure
 
     yt1 = YeoJohnsonTransformation(; λ=λref, X=ones(length(plants), 1), y=plants)
     p = boxcoxplot(yt1; conf_level=0.95)
     save(path("yeojohnson-matrix.png"), p)
     @test p isa Makie.Figure
+
+    # boxcoxplot! should return the axis
+    fig_return = Figure()
+    ax_return = Axis(fig_return[1, 1])
+    result_ax = boxcoxplot!(ax_return, yt1; conf_level=0.95)
+    @test result_ax === ax_return
 end
 
 @testset "show" begin

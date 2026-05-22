@@ -70,9 +70,9 @@ function boxcox(λ, x; atol=0)
         logx = log(x)
         λlogx = λ * logx
         return logx * (1 + (λlogx) / 2 * (1 + (λlogx) / 3 * (1 + (λlogx) / 4)))
+    else
+        return (x^λ - 1) / λ
     end
-
-    return (x^λ - 1) / λ
 end
 
 """
