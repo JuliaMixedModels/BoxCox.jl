@@ -60,7 +60,7 @@ function BoxCox.boxcoxplot!(ax::Axis, t::T;
     scatterlines!(ax, λ, ll; attributes...)
     vlines!(ax, t.λ; linestyle=:dash, color=:black)
 
-    return plot
+    return ax
 end
 
 @setup_workload begin

@@ -89,9 +89,10 @@ end
                   trees)
     bcpf = Figure()
     ax = Axis(bcpf[1, 1]; title="profile log likelihood")
-    boxcoxplot!(ax, volform; conf_level=0.95,
-                xlabel="parameter",
-                ylabel="LL")
+    result_ax = boxcoxplot!(ax, volform; conf_level=0.95,
+                            xlabel="parameter",
+                            ylabel="LL")
+    @test result_ax === ax
     save(path("boxcox_formula.png"), bcpf)
 
     @test_throws ArgumentError boxcoxplot(1)
