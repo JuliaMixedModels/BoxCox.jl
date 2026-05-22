@@ -75,6 +75,11 @@ end
     @test qqfig isa Makie.Figure
     save(path("qqfig.png"), qqfig)
 
+    # qqnorm! with kwargs should not error
+    qqfig2 = Figure()
+    qqnorm!(Axis(qqfig2[1, 1]), vol; color=:blue)
+    @test qqfig2 isa Makie.Figure
+
     bcp = boxcoxplot(vol)
     save(path("boxcox.png"), bcp)
     @test bcp isa Makie.Figure

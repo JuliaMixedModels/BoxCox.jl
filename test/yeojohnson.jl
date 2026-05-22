@@ -63,6 +63,11 @@ end
     @test qqfig isa Makie.Figure
     save(path("qqfig-yeojohnson.png"), qqfig)
 
+    # qqnorm! with kwargs should not error
+    qqfig2 = Figure()
+    qqnorm!(Axis(qqfig2[1, 1]), yt1; color=:blue)
+    @test qqfig2 isa Makie.Figure
+
     p = boxcoxplot(yt1; conf_level=0.95)
     save(path("yeojohnson.png"), p)
     @test p isa Makie.Figure

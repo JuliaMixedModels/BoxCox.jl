@@ -12,7 +12,7 @@ using BoxCox: _llfunc!,
 # XXX it would be great to have a 1-1 aspect ratio here,
 # but this seems like something that should be done upstream
 function Makie.qqnorm!(ax::Axis, t::PowerTransformation, args...; kwargs...)
-    return qqnorm!(ax, t.(response(t), args...; kwargs...))
+    return qqnorm!(ax, t.(response(t)), args...; kwargs...)
 end
 
 function Makie.qqnorm(t::PowerTransformation, args...; kwargs...)
