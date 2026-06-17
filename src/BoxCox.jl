@@ -1,5 +1,6 @@
 module BoxCox
 
+using Distributions
 using DocStringExtensions
 using LinearAlgebra
 # we use NLopt because that's what MixedModels uses and this was developed
@@ -10,8 +11,8 @@ using Printf
 using Statistics
 using StatsAPI
 using StatsBase
-using StatsFuns
 
+using IrrationalConstants: log2π
 using StatsBase: PValue
 # XXX I have no idea why this is necessary, but otherwise isdefined(BoxCox, :params) returns false
 using StatsAPI: params, pvalue
@@ -248,8 +249,10 @@ StatsAPI.nobs(x::PowerTransformation) = length(response(x))
 Return a vector of all parameters, i.e. `[λ]`.
 """
 StatsAPI.params(x::PowerTransformation) = [x.λ]
-StatsAPI.pvalue(x::PowerTransformation) = 1 - chisqcdf(1, lrt0(x))
+StatsAPI.pvalue(x::PowerTransformation) = ccdf(Chisq(1), lrt0(x))
 StatsAPI.response(x::PowerTransformation) = x.y
+
+chisqinvcdf(df, level) = quantile(Chisq(df), level)
 
 lrt0(x::PowerTransformation) = 2 * abs(loglikelihood(x) - loglikelihood(_identity(x)))
 function _identity(t::T) where {T<:PowerTransformation}
