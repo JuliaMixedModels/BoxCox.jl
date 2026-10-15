@@ -1,7 +1,7 @@
 name = "BoxCox"
 uuid = "1248164d-f7a6-4bdb-8e8d-8c4a187b3ce6"
+version = "0.3.11"
 authors = ["Phillip Alday <me@phillipalday.com>"]
-version = "0.3.10"
 
 [deps]
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
@@ -33,8 +33,8 @@ BoxCoxStatsModelsExt = ["StatsModels", "Tables"]
 [compat]
 Aqua = "0.8"
 CairoMakie = "0.8 - 0.15"
-DocStringExtensions = "0.9"
 Distributions = "0.25"
+DocStringExtensions = "0.9, 0.10"
 IrrationalConstants = "0.2"
 LinearAlgebra = "1"
 Makie = "0.19, 0.20, 0.21, 0.22, 0.23, 0.24"
